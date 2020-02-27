@@ -1,1 +1,3 @@
-/adventure.iml
+.idea/*
+**.iml
+target/*
