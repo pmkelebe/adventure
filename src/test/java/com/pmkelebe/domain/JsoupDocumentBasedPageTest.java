@@ -14,7 +14,7 @@ public class JsoupDocumentBasedPageTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testConstructorUsingInvalidUrl() throws IOException {
-        //Given an invalid url
+        //Given an invalid url string
         //When creating a page using it as a parameter
         //Then an IllegalArgumentException is thrown
         new JsoupDocumentBasedPage("invalid");
@@ -22,7 +22,7 @@ public class JsoupDocumentBasedPageTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testConstructorUsingEmptyUrl() throws IOException {
-        //Given an invalid url
+        //Given an empty url string
         //When creating a page using it as a parameter
         //Then an IllegalArgumentException is thrown
         new JsoupDocumentBasedPage("");
@@ -30,7 +30,7 @@ public class JsoupDocumentBasedPageTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testConstructorUsingNullUrl() throws IOException {
-        //Given an invalid url
+        //Given a nul url string
         //When creating a page using it as a parameter
         //Then an IllegalArgumentException is thrown
         new JsoupDocumentBasedPage(null);
