@@ -1,7 +1,5 @@
 package com.pmkelebe.domain;
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -9,15 +7,15 @@ import lombok.Data;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-        "results",
-        "total"
+        "gross",
+        "vat"
 })
 @Data
-public class Results {
+public class Total {
 
-    @JsonProperty("results")
-    private List<Item> items;
-    @JsonProperty("total")
-    private Total total;
+    @JsonProperty("gross")
+    private Double gross = 0.0;
+    @JsonProperty("vat")
+    private Double vat = 0.0;
 
 }
