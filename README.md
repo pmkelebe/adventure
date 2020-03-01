@@ -3,6 +3,37 @@
 This is a Java console application that scrapes the Sainsbury’s grocery site’s - Berries, Cherries, Currants page and returns a JSON array of all the products on the page
 
 The link used is: https://jsainsburyplc.github.io/serverside-test/site/www.sainsburys.co.uk/webapp/wcs/stores/servlet/gb/groceries/berries-cherries-currants6039.html
+
+#####Example Json
+ ```
+{
+  "results": [
+    {
+      "title": "Sainsbury's Strawberries 400g",
+      "kcal_per_100g": 33,
+      "unit_price": 1.75,
+      "description": "by Sainsbury's strawberries"
+    },
+    {
+      "title": "Sainsbury's Blueberries 200g",
+      "kcal_per_100g": 45,
+      "unit_price": 1.75,
+      "description": "by Sainsbury's blueberries"
+    },
+    {
+      "title": "Sainsbury's Cherry Punnet 200g",
+      "kcal_per_100g": 52,
+      "unit_price": 1.5,
+      "description": "Cherries"
+    }
+
+  ],
+  "total": {
+    "gross": 5.00,
+    "vat": 0.83
+  }
+}
+```
 ####Dependencies 
 - Jsoup 1.12.2
 - jackson-databind 2.10.2
