@@ -1,10 +1,6 @@
 package com.pmkelebe.webscraper;
 
-import com.pmkelebe.domain.Item;
-import com.pmkelebe.domain.ItemListPage;
-import com.pmkelebe.domain.ItemPage;
-import com.pmkelebe.domain.Results;
-import com.pmkelebe.domain.Total;
+import com.pmkelebe.domain.*;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -34,23 +30,24 @@ public class BerriesCherriesCurrantsScraper extends WebScraper {
         // From all items links in 'itemListPage', get all item pages
         List<ItemPage> itemPages = itemListPage.getItemPages(ITEM_PAGE_LIST_CREATION_FUNCTION);
 
+        //TODO: move the below code to a ResultsBuilder
         //get list of items
         List<Item> items = itemPages.stream()
-                .map(BerriesCherriesCurrantsScraper::extractItem)
+                .map(this::buildItem)
                 .collect(Collectors.toList());
 
         // get total gross
         Double gross = getTotalGross(items);
 
-        Results res = new Results();
-        res.setItems(items);
+        Results results = new Results();
+        results.setItems(items);
 
         Total tot = new Total();
         tot.setGross(gross);
         tot.setVat(getTotalVat(gross));
-        res.setTotal(tot);
+        results.setTotal(tot);
 
-        return res;
+        return results;
     }
 
     private static Double getTotalVat(Double gross) {
@@ -66,7 +63,7 @@ public class BerriesCherriesCurrantsScraper extends WebScraper {
     }
 
     //
-    static final Function<ItemListPage, List<ItemPage>> ITEM_PAGE_LIST_CREATION_FUNCTION = (ItemListPage itemListPage) -> {
+    final Function<ItemListPage, List<ItemPage>> ITEM_PAGE_LIST_CREATION_FUNCTION = (ItemListPage itemListPage) -> {
         List<ItemPage> itemPages = new ArrayList<>();
         Document document = itemListPage.getDocument();
         Elements elements = document.getElementsByClass("productNameAndPromotions");
@@ -82,46 +79,4 @@ public class BerriesCherriesCurrantsScraper extends WebScraper {
         }
         return itemPages;
     };
-
-    private static Item extractItem(ItemPage itemPage) {
-        final String numRegEx = "[^0-9.?]+";
-        Document document = itemPage.getDocument();
-        Item item = new Item();
-        Element element1 = document.selectFirst("div.productTitleDescriptionContainer h1");
-        item.setTitle(element1.text());
-        Element element4 = document.selectFirst("table.nutritionTable > tbody > tr:nth-child(2)");
-
-        String kcal_per_100g = null;
-        if (null != element4) {
-            kcal_per_100g = element4.selectFirst("td").text();
-        }
-
-        if (null != kcal_per_100g) {
-            item.setKcalPer100g(Integer.parseInt(kcal_per_100g.replaceAll(numRegEx, "")));
-        }
-
-        Element element2 = document.selectFirst("p.pricePerUnit");
-        item.setUnitPrice(Double.parseDouble(element2.text().replaceAll(numRegEx, "")));
-
-        String description = null;
-        Elements elements = document.select("#information > productcontent > htmlcontent > div:nth-child(2) > p");
-        if (null == elements || elements.isEmpty()) {
-            elements = document.select("#mainPart > div:nth-child(1) > div.memo > p");
-        }
-        if (null == elements || elements.isEmpty()) {
-            elements = document.select("#mainPart > div.itemTypeGroupContainer.productText:nth-child(1) > div.itemTypeGroup > p");
-        }
-
-        if (null != elements && !elements.isEmpty()) {
-            for (Element element : elements) {
-                if (!element.text().isEmpty()) {
-                    description = element.text();
-                    break;
-                }
-            }
-        }
-        item.setDescription(description);
-
-        return item;
-    }
 }

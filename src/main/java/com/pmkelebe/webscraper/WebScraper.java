@@ -1,7 +1,10 @@
 package com.pmkelebe.webscraper;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.pmkelebe.domain.Item;
+import com.pmkelebe.domain.ItemPage;
 import com.pmkelebe.domain.Results;
+import com.pmkelebe.util.ItemBuilder;
 import lombok.extern.slf4j.Slf4j;
 
 import java.text.DecimalFormat;
@@ -41,5 +44,15 @@ public abstract class WebScraper {
 
         log.debug("finished scraping");
         return resultsAsJsonString;
+    }
+
+
+    /**
+     * @param itemPage
+     * @return item
+     */
+    public Item buildItem(ItemPage itemPage) {
+        ItemBuilder builder = new ItemBuilder(itemPage);
+        return builder.build();
     }
 }
