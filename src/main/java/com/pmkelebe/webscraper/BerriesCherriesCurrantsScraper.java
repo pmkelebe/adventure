@@ -4,7 +4,6 @@ import com.pmkelebe.domain.ItemListPage;
 import com.pmkelebe.domain.ItemPage;
 import com.pmkelebe.domain.Results;
 import com.pmkelebe.util.ResultsBuilder;
-import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
@@ -41,10 +40,9 @@ public class BerriesCherriesCurrantsScraper extends WebScraper {
     //
     final Function<ItemListPage, List<ItemPage>> ITEM_PAGE_LIST_CREATION_FUNCTION = (ItemListPage itemListPage) -> {
         List<ItemPage> itemPages = new ArrayList<>();
-        Document document = itemListPage.getDocument();
-        Elements elements = document.getElementsByClass("productNameAndPromotions");
+        Elements elements = itemListPage.getListOfItemElements();
         for (Element element : elements) {
-            Element linkElement = element.selectFirst("h3 a");
+            Element linkElement = element.selectFirst(ItemListPage.ITEM_ANCHOR_CSS);
             String itemLink = SITE_ROOT_URL + "/" + linkElement.attributes().get("href").replaceAll("\\.\\./", "");
             try {
                 itemPages.add(new ItemPage(itemLink));
