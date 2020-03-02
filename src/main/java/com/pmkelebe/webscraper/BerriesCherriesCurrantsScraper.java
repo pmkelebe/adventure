@@ -1,6 +1,9 @@
 package com.pmkelebe.webscraper;
 
-import com.pmkelebe.domain.*;
+import com.pmkelebe.domain.ItemListPage;
+import com.pmkelebe.domain.ItemPage;
+import com.pmkelebe.domain.Results;
+import com.pmkelebe.util.ResultsBuilder;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -9,7 +12,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 public class BerriesCherriesCurrantsScraper extends WebScraper {
     public static final String BERRIES_CHERRIES_CURRANTS_URL = SITE_ROOT_URL + "/webapp/wcs/stores/servlet/gb/groceries/berries-cherries-currants6039.html";
@@ -30,36 +32,10 @@ public class BerriesCherriesCurrantsScraper extends WebScraper {
         // From all items links in 'itemListPage', get all item pages
         List<ItemPage> itemPages = itemListPage.getItemPages(ITEM_PAGE_LIST_CREATION_FUNCTION);
 
-        //TODO: move the below code to a ResultsBuilder
-        //get list of items
-        List<Item> items = itemPages.stream()
-                .map(this::buildItem)
-                .collect(Collectors.toList());
-
-        // get total gross
-        Double gross = getTotalGross(items);
-
-        Results results = new Results();
-        results.setItems(items);
-
-        Total tot = new Total();
-        tot.setGross(gross);
-        tot.setVat(getTotalVat(gross));
-        results.setTotal(tot);
+        //build scraping result
+        Results results = new ResultsBuilder(itemPages).build();
 
         return results;
-    }
-
-    private static Double getTotalVat(Double gross) {
-        Double vat = gross - (gross / (1 + APPLIED_VAT));
-        return Double.parseDouble(DECIMAL_FORMAT.format(vat));
-    }
-
-    private static Double getTotalGross(List<Item> items) {
-        Double gross = items.stream()
-                .map(Item::getUnitPrice)
-                .reduce(0d, (p1, p2) -> p1 + p2);
-        return Double.parseDouble(DECIMAL_FORMAT.format(gross));
     }
 
     //

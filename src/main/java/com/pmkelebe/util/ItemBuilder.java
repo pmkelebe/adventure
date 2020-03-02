@@ -11,6 +11,9 @@ import org.jsoup.select.Elements;
 public class ItemBuilder implements Builder<Item> {
     private ItemPage itemPage;
 
+    /**
+     * @param itemPage
+     */
     public ItemBuilder(ItemPage itemPage) {
         this.itemPage = itemPage;
     }

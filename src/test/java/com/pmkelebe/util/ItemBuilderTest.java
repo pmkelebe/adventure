@@ -20,8 +20,9 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class ItemBuilderTest {
 
     private Item strawberries400;
-    private ItemBuilder itemBuilder;
     private ItemPage strawberries400Page;
+
+    private ItemBuilder itemBuilder;
 
 
     @Before
