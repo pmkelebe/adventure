@@ -39,11 +39,11 @@ public class ResultsBuilderTest {
         ScraperTestUtil.prepareMocksForTest("strawberries400.html", "blueberries200.html");
 
         strawberries400Page = new ItemPage("validUrlStrawberries400");
-        strawberries400 = getItem("Sainsbury's Strawberries 400g", 33, 1.75,
+        strawberries400 = ScraperTestUtil.getItem("Sainsbury's Strawberries 400g", 33, 1.75,
                 "by Sainsbury's strawberries");
 
-        blueberries200Page = new ItemPage("validUrlStrawberries400");
-        blueberries200 = getItem("Sainsbury's Blueberries 200g", 45, 1.75,
+        blueberries200Page = new ItemPage("validUrlBlueberries200");
+        blueberries200 = ScraperTestUtil.getItem("Sainsbury's Blueberries 200g", 45, 1.75,
                 "by Sainsbury's blueberries");
 
         itemPages = new ArrayList<>();
@@ -80,12 +80,4 @@ public class ResultsBuilderTest {
     }
 
     //-
-    private Item getItem(String title, Integer kcalPer100g, Double unitPrice, String description) {
-        Item item = new Item();
-        item.setTitle(title);
-        item.setKcalPer100g(kcalPer100g);
-        item.setUnitPrice(unitPrice);
-        item.setDescription(description);
-        return item;
-    }
 }

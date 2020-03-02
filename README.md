@@ -87,6 +87,7 @@ The jar file has all the dependencies. You can copy this from /target folder to 
 - java -jar webscraper-1.0-SNAPSHOT.jar
 
 ####Running App in a Docker container
+ 
 There is a Dockerfile in the project root folder /adventure
 - Build project
   - mvn -U package
