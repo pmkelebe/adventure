@@ -84,4 +84,14 @@ To run the app, use the following command
 - java -jar target/webscraper-1.0-SNAPSHOT.jar
 
 The jar file has all the dependencies. You can copy this from /target folder to any location and then use this command:
-- java -jar webscraper-1.0-SNAPSHOT.jar 
+- java -jar webscraper-1.0-SNAPSHOT.jar
+
+####Running App in a Docker container
+There is a Dockerfile in the project root folder /adventure
+- Build project
+  - mvn -U package
+- Build  Docker image by running the command below; use your own chosen image name.
+ Note that the dot is required at the end of the command.
+  - docker build -t <your_image_name> . 
+- Start your container 
+  - docker run  <your_image_name>
