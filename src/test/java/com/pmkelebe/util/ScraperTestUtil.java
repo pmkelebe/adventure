@@ -1,5 +1,6 @@
 package com.pmkelebe.util;
 
+import com.pmkelebe.domain.Item;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -24,21 +25,21 @@ public class ScraperTestUtil {
     public static void prepareMocksForTest(String... htmlFiles) throws IOException {
 
         Connection connection = mock(Connection.class);
-        List<Document> itemPages = new ArrayList<>();
+        List<Document> documents = new ArrayList<>();
 
-        Document itemListPage = Jsoup.parseBodyFragment(getHtml(htmlFiles[0]));
+        Document firstDocument = Jsoup.parseBodyFragment(getHtml(htmlFiles[0]));
 
         for (int i = 1; i < htmlFiles.length; i++) {
-            itemPages.add(Jsoup.parseBodyFragment(getHtml(htmlFiles[i])));
+            documents.add(Jsoup.parseBodyFragment(getHtml(htmlFiles[i])));
         }
         PowerMockito.mockStatic(Jsoup.class);
         PowerMockito.when(Jsoup.connect(ArgumentMatchers.anyString())).thenReturn(connection);
 
-        if (!itemPages.isEmpty()) {
-            Document[] documents = itemPages.stream().toArray(Document[]::new);
-            when(connection.get()).thenReturn(itemListPage, documents);
+        if (!documents.isEmpty()) {
+            Document[] otherDocuments = documents.stream().toArray(Document[]::new);
+            when(connection.get()).thenReturn(firstDocument, otherDocuments);
         } else {
-            when(connection.get()).thenReturn(itemListPage);
+            when(connection.get()).thenReturn(firstDocument);
         }
     }
 
@@ -53,5 +54,14 @@ public class ScraperTestUtil {
             htmlFragment = new String(Files.readAllBytes(file.toPath()));
         }
         return htmlFragment;
+    }
+
+    public static Item getItem(String title, Integer kcalPer100g, Double unitPrice, String description) {
+        Item item = new Item();
+        item.setTitle(title);
+        item.setKcalPer100g(kcalPer100g);
+        item.setUnitPrice(unitPrice);
+        item.setDescription(description);
+        return item;
     }
 }
