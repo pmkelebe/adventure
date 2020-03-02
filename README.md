@@ -61,7 +61,7 @@ The link used is: https://jsainsburyplc.github.io/serverside-test/site/www.sains
 - src/test/java - All test classes
   - src/test/java/com/pmkelebe/webscraper - Test for webScraper class, 
   - src/test/java/com/pmkelebe/domain/ - Test for domain classes.
-  - src/test/java/com/pmkelebe/util - ScraperTestUtil class to help for testing 
+  - src/test/java/com/pmkelebe/util - Tests for util classes and also there is ScraperTestUtil to help for testing 
 
 - src/test/resources - All resources (html files) used in tests.
 
