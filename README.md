@@ -1,10 +1,10 @@
-###WebScraper
+### WebScraper
 
 This is a Java console application that scrapes the Sainsbury’s grocery site’s - Berries, Cherries, Currants page and returns a JSON array of all the products on the page
 
 The link used is: https://jsainsburyplc.github.io/serverside-test/site/www.sainsburys.co.uk/webapp/wcs/stores/servlet/gb/groceries/berries-cherries-currants6039.html
 
-#####Example Json
+##### Example Json
  ```
 {
   "results": [
@@ -34,7 +34,7 @@ The link used is: https://jsainsburyplc.github.io/serverside-test/site/www.sains
   }
 }
 ```
-####Dependencies 
+#### Dependencies 
 - Jsoup 1.12.2
 - jackson-databind 2.10.2
 - lombok 1.18.12
@@ -49,7 +49,7 @@ The link used is: https://jsainsburyplc.github.io/serverside-test/site/www.sains
 - jsonassert 1.5.0
 
 
-####Project Structure
+#### Project Structure
 - src/main/java - All application classes.
   - src/main/java/com/pmkelebe/ - Application class to start the application.
   - src/main/java/com/pmkelebe/webscraper/ - WebScraper interface and BerriesCherriesCurrantsScraper implementation.
@@ -65,7 +65,7 @@ The link used is: https://jsainsburyplc.github.io/serverside-test/site/www.sains
 
 - src/test/resources - All resources (html files) used in tests.
 
-####Building
+#### Building
 
 Clone locally the project by using this command
 - git clone https://github.com/pmkelebe/adventure.git
@@ -73,12 +73,12 @@ Clone locally the project by using this command
 Build the app locally from the project root folder (/adventure)
 - mvn -U package
 
-####Running Tests
+#### Running Tests
 
 To run all the test run the following maven goal under /adventure 
 - mvn -U test
 
-####Running App
+#### Running App
 
 To run the app, use the following command
 - java -jar target/webscraper-1.0-SNAPSHOT.jar
@@ -86,7 +86,7 @@ To run the app, use the following command
 The jar file has all the dependencies. You can copy this from /target folder to any location and then use this command:
 - java -jar webscraper-1.0-SNAPSHOT.jar
 
-####Running App in a Docker container
+#### Running App in a Docker container
  
 There is a Dockerfile in the project root folder /adventure
 - Build project
