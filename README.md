@@ -36,11 +36,11 @@ The link used is: https://jsainsburyplc.github.io/serverside-test/site/www.sains
 ```
 #### Dependencies 
 - Jsoup 1.12.2
-- jackson-databind 2.10.2
+- jackson-databind 2.10.5.1
 - lombok 1.18.12
 - slf4j-api 2.0.0-alpha1
 - logback-classic 1.3.0-alpha5
-- junit 4.13
+- junit 4.13.1
 - mockito-core 3.3.0
 - hamcrest-library 2.2
 - powermock-api-mockito-common 1.7.4
